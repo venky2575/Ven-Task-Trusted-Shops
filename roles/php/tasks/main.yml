@@ -1,0 +1,24 @@
+---
+- name: Install PHP Packages
+  apt:
+    name={{ item }}
+    update_cache=yes
+    state=latest
+  loop: [ 'php7.2', 'php7.2-fpm' ]
+
+- name: Cleaning data
+  apt:
+    name=apache2
+    state=absent
+
+- name: Creating PHP Index file
+  template:
+    src=index.php.j2
+    dest=/var/www/html/index.php
+    mode=0777
+  notify: restart nginx
+
+- name: cleaning default index file
+  file:
+    path=/var/www/html/index.nginx-debian.html
+    state=absent

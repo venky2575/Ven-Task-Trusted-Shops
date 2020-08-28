@@ -1,0 +1,14 @@
+---
+#This playbook will install Nginx and PHP on Ubuntu server
+#Author: Venkateswarlu Kuchipudi
+#Date: 28-August-2020
+
+- hosts: ubuntu
+  gather_facts: False
+  become: yes
+  become_method: sudo
+  
+  roles:
+   - nginx
+   - php
+
